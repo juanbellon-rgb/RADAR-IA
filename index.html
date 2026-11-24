@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar Diario de IA | Orange</title>
+  <style>
+    :root {
+      --orange: #FF7900;
+      --orange-hover: #e56d00;
+      --black: #000000;
+      --dark-gray: #141414;
+      --light-bg: #F4F4F4;
+      --white: #FFFFFF;
+      --border: #DDDDDD;
+      --text-main: #000000;
+      --text-muted: #595959;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* Cabecera estilo Orange */
+    header {
+      background-color: var(--black);
+      color: var(--white);
+      border-bottom: 4px solid var(--orange);
+      padding: 20px 0;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .orange-logo {
+      background-color: var(--orange);
+      color: var(--white);
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: flex-end;
+      padding: 5px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: -0.5px;
+      user-select: none;
+    }
+
+    .brand h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand span {
+      color: var(--orange);
+    }
+
+    .fecha-badge {
+      background-color: var(--dark-gray);
+      border: 1px solid #333;
+      color: #CCCCCC;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Contenedor Principal */
+    main {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    /* Pestañas de Países */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+      border-bottom: 2px solid var(--black);
+      padding-bottom: 0;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 14px 24px;
+      border: 2px solid transparent;
+      border-bottom: none;
+      background-color: var(--white);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .tab:hover {
+      color: var(--orange);
+    }
+
+    .tab.active {
+      background-color: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    .tab.active .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--orange);
+      margin-right: 8px;
+    }
+
+    /* Grid de 3 Bloques */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .bloque {
+      background-color: var(--white);
+      border: 1px solid var(--border);
+      border-top: 5px solid var(--black);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bloque:hover {
+      border-top-color: var(--orange);
+    }
+
+    .bloque-header {
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .categoria-tag {
+      display: inline-block;
+      background-color: var(--orange);
+      color: var(--black);
+      font-weight: 800;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .bloque h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    /* Tarjetas de Noticias */
+    .noticia {
+      padding: 16px 0;
+      border-bottom: 1px solid #EEEEEE;
+    }
+
+    .noticia:first-of-type {
+      padding-top: 0;
+    }
+
+    .noticia:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .noticia a {
+      text-decoration: none;
+      color: var(--black);
+      font-weight: 700;
+      font-size: 1.02rem;
+      display: block;
+      margin-bottom: 8px;
+      transition: color 0.15s ease;
+    }
+
+    .noticia a:hover {
+      color: var(--orange);
+    }
+
+    .noticia p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .noticia-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .fuente {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--black);
+      letter-spacing: 0.03em;
+    }
+
+    .leer-mas {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .vacio {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      padding: 20px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      margin-top: 50px;
+      background-color: var(--white);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="orange-logo">IA</div>
+        <h1>Radar Diario <span>IA</span></h1>
+      </div>
+      <div class="fecha-badge" id="fecha">Cargando edición...</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="tabs" id="tabs">
+      <button class="tab active" onclick="cambiarPais('Estados Unidos', this)">
+        <span class="dot"></span>Estados Unidos
+      </button>
+      <button class="tab" onclick="cambiarPais('China', this)">
+        <span class="dot"></span>China
+      </button>
+      <button class="tab" onclick="cambiarPais('España', this)">
+        <span class="dot"></span>España
+      </button>
+    </div>
+
+    <div class="grid" id="contenedor"></div>
+  </main>
+
+  <footer>
+    Boletín interno de actualidad en Inteligencia Artificial · Actualización automática diaria
+  </footer>
+
+  <script>
+    let datosGlobales = {};
+
+    async function cargarNoticias() {
+      try {
+        const respuesta = await fetch('noticias.json?t=' + new Date().getTime());
+        datosGlobales = await respuesta.json();
+        document.getElementById('fecha').textContent = 'Edición: ' + datosGlobales.fecha_actualizacion;
+        renderizarPais('Estados Unidos');
+      } catch (error) {
+        document.getElementById('contenedor').innerHTML = '<p>Error al cargar noticias.json. Asegúrate de que el archivo existe en el repositorio.</p>';
+      }
+    }
+
+    function cambiarPais(pais, boton) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      boton.classList.add('active');
+      renderizarPais(pais);
+    }
+
+    function renderizarPais(pais) {
+      const info = datosGlobales.paises[pais];
+      const categorias = [
+        { key: 'modelos', tag: 'Bloque A', titulo: 'Novedades en modelos' },
+        { key: 'legislacion', tag: 'Bloque B', titulo: 'Legislación' },
+        { key: 'uso', tag: 'Bloque C', titulo: 'Uso en empresa y residencial' }
+      ];
+
+      const html = categorias.map(cat => {
+        const lista = info && info[cat.key] ? info[cat.key] : [];
+        const itemsHtml = lista.length ? lista.map(n => `
+          <article class="noticia">
+            <a href="${n.url}" target="_blank" rel="noopener noreferrer">${n.titulo}</a>
+            <p>${n.resumen}</p>
+            <div class="noticia-footer">
+              <span class="fuente">${n.fuente}</span>
+              <a href="${n.url}" target="_blank" rel="noopener noreferrer" class="leer-mas">Leer fuente &rarr;</a>
+            </div>
+          </article>
+        `).join('') : '<p class="vacio">Sin novedades destacadas en las últimas 24h.</p>';
+
+        return `
+          <section class="bloque">
+            <div class="bloque-header">
+              <span class="categoria-tag">${cat.tag}</span>
+              <h2>${cat.titulo}</h2>
+            </div>
+            ${itemsHtml}
+          </section>
+        `;
+      }).join('');
+
+      document.getElementById('contenedor').innerHTML = html;
+    }
+
+    cargarNoticias();
+  </script>
+</body>
+</html>
