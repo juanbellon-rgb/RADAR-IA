@@ -1,0 +1,32 @@
+{
+  "fecha_actualizacion": "24 de noviembre de 2026",
+  "paises": {
+    "Estados Unidos": {
+      "modelos": [
+        { "titulo": "Nuevo modelo multimodal presentado en Silicon Valley", "resumen": "Reduce un 40% los tiempos de respuesta en tareas complejas.", "fuente": "TechCrunch", "url": "https://techcrunch.com" }
+      ],
+      "legislacion": [
+        { "titulo": "Actualización sobre estándares de seguridad en IA", "resumen": "Nuevas directrices para auditorías de modelos fundacionales.", "fuente": "Reuters", "url": "https://reuters.com" }
+      ],
+      "uso": [
+        { "titulo": "Las empresas aumentan la inversión en agentes internos", "resumen": "Automatización de atención al cliente y soporte técnico.", "fuente": "Bloomberg", "url": "https://bloomberg.com" }
+      ]
+    },
+    "China": {
+      "modelos": [
+        { "titulo": "Lanzamiento de modelo abierto de alto rendimiento", "resumen": "Compite directamente en benchmarks de programación y matemáticas.", "fuente": "SCMP", "url": "https://scmp.com" }
+      ],
+      "legislacion": [],
+      "uso": []
+    },
+    "España": {
+      "modelos": [],
+      "legislacion": [
+        { "titulo": "Nuevas guías de supervisión de IA en el entorno europeo", "resumen": "Aclaraciones para empresas sobre el cumplimiento normativo.", "fuente": "El País", "url": "https://elpais.com" }
+      ],
+      "uso": [
+        { "titulo": "Despliegue de asistentes de voz con IA en telecomunicaciones", "resumen": "Mejora en la resolución de incidencias en el hogar.", "fuente": "Expansión", "url": "https://expansion.com" }
+      ]
+    }
+  }
+}
